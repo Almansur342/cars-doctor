@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/login/login.svg"
 
 import { FcGoogle } from "react-icons/fc";
@@ -12,10 +12,13 @@ import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2'
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
+import axios from "axios";
 
 
 const Login = () => {
   const {signIn} = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const Toast = Swal.mixin({
     toast: true,
@@ -35,10 +38,21 @@ const Login = () => {
 
    const onSubmit = data =>{
     const {email,password} = data;
-    console.log(email,password);
+    // console.log(email,password);
     signIn(email,password)
     .then(result =>{
-      console.log(result.user)
+      const loggedInUser = result.user;
+      const user = {email};
+      
+      // console.log(result.user)
+      // get access token
+      axios.post('http://localhost:5000/jwt', user, {withCredentials:true})
+      .then(res =>{
+        console.log(res.data)
+        if(res.data.success){
+          navigate(location?.state ? location?.state : '/')
+      }
+      })
     })
     .catch(error => {
       console.error(error)

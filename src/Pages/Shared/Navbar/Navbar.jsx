@@ -44,7 +44,7 @@ const Navbar = () => {
         <button className="px-5 py-2 border text-[#FF3811] border-[#FF3811] rounded-lg">Appointment</button>
        
         {
-          user?.email? <Link onClick={handleLogOut} className="px-5 py-2 text-[#FF3811] border-[#FF3811] border rounded-lg ml-2 btn-warning" to="/login">Log out</Link> : <Link className="px-5 py-2 border rounded-lg ml-2 text-[#FF3811] border-[#FF3811]" to="/login">Login</Link>
+          user?.email? <Link onClick={handleLogOut} className="px-5 py-2 text-[#FF3811] border-[#FF3811] border rounded-lg ml-2 btn-warning" to="/">Log out</Link> : <Link className="px-5 py-2 border rounded-lg ml-2 text-[#FF3811] border-[#FF3811]" to="/login">Login</Link>
         }
       </div>
     </div>
